@@ -1,5 +1,5 @@
 {
-    "mongoURL": "mongodb+srv://Shavidini:22CLya3jTdDXyMF6@sushionline.hd6q9do.mongodb.net/test",
+    "mongoURL": "mongodb+srv://Shavidini:mgrOs7A8esTbQAie@sushionline.hd6q9do.mongodb.net/sushionline",
   
     "jwtSecret": "mysecrettoken"
 }
