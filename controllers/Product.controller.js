@@ -1,34 +1,47 @@
-const bcrypt = require("bcryptjs");
-const Admin = require("../models/Admin.model");
-const jwt = require("jsonwebtoken");
+const ProductModel = require("../models/Product");
 const config = require("config");
 
-const addItem = (req, res, next)=>{
+const addItem = (req, res, next) => {
+  const Item = new ProductModel({
+    vendorId: req.query.vendorId,
+    name: req.body.name,
+    description: req.body.description,
+    category: req.body.category,
+    price: req.body.price,
+    avalilableQTY: req.body.avalilableQTY,
+  });
 
-    const Item = new ProductModel({
-    //   adminId: req.query.adminId,
-      name: req.body.name,
-      description: req.body.description,
+  try {
+    Item.save();
+    res.status(200).json({
+      succuss: true,
+      message: "Insertion succussfull",
+      payload: {},
     });
+  } catch (error) {
+    res.status(400).json({
+      message: "Cannot add data right now!",
+    });
+  }
+};
+
+//viewAll
+const viewAll = (req, res, next) => {
+  ProductModel.find()
+    .then((Product) => {
+      res.status(200).json({
+        success: true,
+        message: "Read successfuly",
+        Product,
+      });
+    })
+    .catch((e) => {
+      res.status(400).json({ success: false, message: e.message, payload: {} });
+    });
+};
+
+//viewAll for profile
+const viewProductById = (req, res, next) => {
   
-    try{
-      Item.save();
-      res.status(200).json(
-        {
-          succuss: true,
-          message: 'Insertion succussfull',
-          payload: {}
-        }
-      );
-    }
-    catch (error) {
-      res.status(400).json(
-        {
-          message: 'Cannot add data right now!'
-        }
-      );
-    }
-  };
-
-
-module.exports = {addItem};
+};
+module.exports = { addItem, viewAll,viewProductById };
