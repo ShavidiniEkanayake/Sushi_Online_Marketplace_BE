@@ -2,9 +2,14 @@
   "name": "sushi_online_marketplace_be",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "build": "npm run clean && npm run build-babel && npm run copy",
+    "build-babel": "babel -d ./dist . -s",
+    "clean": "rm -rf dist && mkdir dist",
+    "copy": "babel . --out-dir ./dist --copy-files",
+    "dev": "nodemon --exec babel-node server.js",
+    "start": "node dist/server.js",
     "server": "nodemon server.js"
   },
   "repository": {
@@ -18,11 +23,21 @@
   },
   "homepage": "https://github.com/ShavidiniEkanayake/Sushi_Online_Marketplace_BE#readme",
   "dependencies": {
+    "@babel/node": "^7.20.7",
     "bcrypt": "^5.1.0",
+    "celebrate": "^15.0.1",
     "config": "^3.3.9",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^6.9.0"
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.9.0",
+    "nodemon": "^2.0.20",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2"
   }
 }
